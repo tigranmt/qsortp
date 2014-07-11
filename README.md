@@ -22,10 +22,10 @@ Example: we have 13 elements to sort on 4 cores, that means that 3 core will get
 
 
 
-On the Intel Core i5 2.90Ghz, 4 cores, 8GM RAM with Windows7 64bit, sorting unsorted, random list of 6.000.000 Vertex structures
+With Intel Core i5 2.90Ghz, 4 cores, 8GM RAM, Windows7 64bit, sorting unsorted, random list of 6.000.000 Vertex structures
 
-- With sequential quick sort takes: 6.40 sec 
-- With parallel   quick sort takes: 2.10 sec 
+- With sequential quick sort it takes: 6.40 sec 
+- With parallel   quick sort it takes: 2.10 sec 
 
 
 almost 3x times faster.
