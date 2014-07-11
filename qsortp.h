@@ -1,14 +1,14 @@
+/*****************************************************************************************************************************
+	Implementation of QuickSort (http://it.wikipedia.org/wiki/Quicksort) on multiple cores using OpenMP (http://openmp.org/wp/)
+	2014, Guly
+*******************************************************************************************************************************/
+
 #pragma once 
 #include <vector> 
 #include <algorithm> 
 #include <memory>
 #include <tuple>
 #include <stack>
-
-/*****************************************************************************************************************************
-	Implementation of QuickSort (http://it.wikipedia.org/wiki/Quicksort) on multiple cores using OpenMP (http://openmp.org/wp/)
-	2014, Guly
-*******************************************************************************************************************************/
 #include <cmath>
 #include "omp.h"
 

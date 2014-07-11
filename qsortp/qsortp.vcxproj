@@ -78,7 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\file.h" />
+    <ClInclude Include="..\debug.h" />
     <ClInclude Include="..\qsortp.h" />
   </ItemGroup>
   <ItemGroup>

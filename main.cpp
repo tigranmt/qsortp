@@ -3,109 +3,20 @@
 #include <vector>
 #include <random>
 #include "qsortp.h"
-#include "file.h"
+#include "debug.h"
 using namespace std;
 using namespace qsortp_debug;
 
-struct Vertex 
-{
-	private:
-		float x,y,z;
-	public:
-		
-		Vertex() {}
-		Vertex(float a, float b, float c):x(a),y(b),z(c){}
-
-		bool operator > (const Vertex& other){
-			float thisDistance = getDistanceFrom0(*this);
-			float otherDistance = getDistanceFrom0(other);
-			return thisDistance > otherDistance;
-		}
-
-		bool operator < (const Vertex& other){			
-			float thisDistance = getDistanceFrom0(*this);
-			float otherDistance = getDistanceFrom0(other);
-			return thisDistance < otherDistance;
-		}
-
-		static float getDistanceFrom0(const Vertex& v) {
-			return sqrt(pow(v.x,2) + pow(v.y,2) + pow(v.z,2));
-		}
-};
-
-template<class T>
-void printvector(vector<T> &arr) 
-{
-	auto size = arr.size();
-	cout<<"Size of array: " << size <<endl;
-	for(auto i=0; i<size; i++) 
-	{
-		cout<<"i:" << i << " [" << arr[i] << "]" <<",";
-	}
-
-	cout<<endl;
-}
-
-template <class T>
-void writofile(vector<T> &arr, const char* fname)
-{
-	 cout << "Save to file: " << fname;
-	 FileWrite myfile(fname);  	
-	 for(auto i=0; i<arr.size(); i++) 
-	 {
-	 	myfile << "[" << i << "] " << arr[i] <<", ";
-	 }	
-
-	 cout<<"Done"<<endl;
-}
 
 
-void fillWithRandomFloat(vector<float> &arr, int count)
-{
-	//random generator
-	for(auto i=count; i>0; i--) {
-    	auto value = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-    	arr.push_back(value);
-	}
-	//inverse sequence 
-	/*for(auto i=count; i>0; i--)
-    	arr.push_back(i);*/
-}
 
-void fillWithRandomVertex(vector<Vertex> &arr, int count)
-{
-	for(auto i=count; i>0; i--) {
-    	auto x = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		auto y = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-		auto z = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-
-		Vertex value(x,y,z);
-    	arr.push_back(value);
-	}
-}
-
-template<class T>
-bool isSorted(vector<T> &arr)
-{
-	if(arr.size()<=1)
-		return true; 
-
-	for(auto i=1;i<arr.size()-1; i++)
-	{
-		if(arr[i] > arr[i+1])
-			return false; 
-	}
-
-	return true;
-}
-
-
+//Sequential sort 
 void SequentialQuickSort(int elementsCount)
 {
 	vector<Vertex> a;
 	cout << "Start Sequential Sort " << endl;
 	cout<<"Generate vector for "<< elementsCount << " elements"<<endl;
-	fillWithRandomVertex(a, elementsCount);
+	fillWithRandomVertex(a, elementsCount); //generates vector 
 
 	cout << "Array elements count is: " << a.size() << endl; 
 	cout << "Array is sorted: " << isSorted(a) <<endl;
@@ -114,7 +25,7 @@ void SequentialQuickSort(int elementsCount)
 
 	auto start = omp_get_wtime();
 
-	//STL version 
+	//STL version of sequential sort
 	sort(a.begin(), a.end());
 
 	auto end   = omp_get_wtime();		
@@ -129,7 +40,7 @@ void SequentialQuickSort(int elementsCount)
 }
 
 
-
+//Parallel quick sort
 void ParallelQuickSort(int elementsCount)
 {
 	try {
@@ -137,7 +48,7 @@ void ParallelQuickSort(int elementsCount)
 		vector<Vertex> a;
 		cout << "Start Parallel  Sort " << endl;
 		cout<<"Generate vector for "<< elementsCount << " elements"<<endl;
-		fillWithRandomVertex(a, elementsCount);
+		fillWithRandomVertex(a, elementsCount); //generate random values
 	
 
 		cout<<"Done" <<endl; 
@@ -148,7 +59,7 @@ void ParallelQuickSort(int elementsCount)
 		qsortp<Vertex> qs;
 		
 		auto start = omp_get_wtime();		
-		qs.SortP(a, 0, a.size()-1); 
+		qs.SortP(a, 0, a.size()-1);  //parallel quick sort implementation 
 		auto end   = omp_get_wtime();
 		
 		//printvector(a);
@@ -171,7 +82,7 @@ void ParallelQuickSort(int elementsCount)
 int main() 
 {
 
-	const int count = 10000000;	
+	const int count = 6000000;	
 	SequentialQuickSort(count);
 	ParallelQuickSort(count);
  

@@ -66,3 +66,5 @@ $RECYCLE.BIN/
 *.msp
 *.user
 *.suo
+*.sdf
+*.opensdf
