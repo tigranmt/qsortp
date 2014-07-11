@@ -17,4 +17,12 @@ will be devided in 4 chunks(sub arrays) with 250 elements each.
 
 
 
+On the Intel Core i5 2.90Ghz, 4 cores, 8GM RAM with Windows7 64bit, sorting unsorted, random list of 6.000.000 Vertex structures
+
+- With sequential quick sort takes: 6.40 sec 
+- With parallel   quick sort takes: 2.10 sec 
+
+
+almost 300% faster.
+
 
