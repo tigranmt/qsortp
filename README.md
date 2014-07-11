@@ -23,6 +23,6 @@ On the Intel Core i5 2.90Ghz, 4 cores, 8GM RAM with Windows7 64bit, sorting unso
 - With parallel   quick sort takes: 2.10 sec 
 
 
-almost 300% faster.
+almost 3x times faster.
 
 
