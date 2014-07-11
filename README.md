@@ -13,7 +13,7 @@ The basic idea is:
 
 2) Every chuck(sub array) is sorted using original quick sort algoritm implementation, or std:sort. 
 
-3) Every, at this point, sorted couple of subarrays is merged/reduced into single soted array till merged/reduced  everything to the one single array. 
+3) Every, at this point, sorted couple of subarrays is merged/reduced into single soted array till everything is merged/reduced to the one, single array. 
 
 
 
