@@ -74,8 +74,7 @@ void ParallelQuickSort(int elementsCount)
 	}
 	catch(std::exception ex) {
 		cout << "Exception: " << ex.what() << endl;
-		getchar();
-		
+		getchar();		
 	}
 }
 

@@ -145,7 +145,7 @@ class qsortp
 
 				auto pivotIndex = (start + end)/2; 
 				auto pivotValue = arr[pivotIndex];
-				//auto pivotValue = arr[end];
+			
 				while(start < end) 
 				{
 
@@ -174,16 +174,11 @@ class qsortp
 
 	public: 
 
-		void qsort()
-		{
-		}
-	
+		//Sequential quick sort implementation 
 		void Sort(vector<T> &arr, int start, int end)
 		{			
 			if(arr.size() <= 1) return;
-				
-			// check(arr);
-
+		
 			 if(start < end) 
 			 {
 		     	int part = partition(arr, start, end); 
@@ -193,11 +188,10 @@ class qsortp
 		}
 		
 
+		//Paralle quick sort implementation
 		void SortP(vector<T> &arr, int start, int end)
 		{
 			if(arr.size() <= 1) return;
-
-			//check(arr);
 
 			int threadCount=1;
 			int arrSize = arr.size();			
@@ -217,8 +211,6 @@ class qsortp
 			
 
 			//define sequence of tuples which holds the chunk range indices
-
-
 			unique_ptr<IntTuple[]> indexRanges(new IntTuple[threadCount]);
 			
 			
@@ -227,9 +219,7 @@ class qsortp
 				{
 					int start = i*step; //get start
 					int end = start + step;	//get end			
-					 // find reminder, if ANY relevant
-
-
+				
 					int threadid = omp_get_thread_num();
 
 					//if this is a last thread add reminded elements to its calculation
@@ -240,8 +230,6 @@ class qsortp
 
 					IntTuple t = make_tuple(start, end);	
 					indexRanges[i] = t; 
-
-					//cout<< "threadid: " << omp_get_thread_num() << " start: " << start << " end:" << end <<  endl;
 
 					//execute STL version (NON QUICK SORT)
 					sort(arr.begin() + start, arr.begin() + end);					
