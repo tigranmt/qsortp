@@ -22,7 +22,7 @@ namespace qsortp_debug
 	{
 		auto size = arr.size();
 		cout<<"Size of array: " << size <<endl;
-		for(auto i=0; i<size; i++) 
+		for(unsigned i=0; i<size; i++) 
 		{
 			cout<<"i:" << i << " [" << arr[i] << "]" <<",";
 		}
@@ -35,12 +35,12 @@ namespace qsortp_debug
 	{
 		 cout << "Save to file: " << fname;
 		 FileWrite myfile(fname);  	
-		 for(auto i=0; i<arr.size(); i++) 
+		 for(unsigned i=0; i<arr.size(); i++) 		 	
 		 {
-	 		myfile << "[" << i << "] " << arr[i] <<", ";
+	 		myfile << arr[i] <<", ";
 		 }	
 
-		 cout<<"Done"<<endl;
+		 cout<<endl<<"Done"<<endl;
 	};
 
 	//checks if array is sorted
@@ -50,7 +50,7 @@ namespace qsortp_debug
 		if(arr.size()<=1)
 			return true; 
 
-		for(auto i=1;i<arr.size()-1; i++)
+		for(unsigned i=1;i<arr.size()-1; i++)
 		{
 			if(arr[i] > arr[i+1])
 				return false; 
@@ -61,53 +61,8 @@ namespace qsortp_debug
 };
 
 
-class qsortp_debug::FileWrite
-{
-
-	private: 
-		ofstream myfile;
-
-
-	public: 
-		FileWrite(const char* fileName)
-		{
-			myfile.open (fileName);
-		}
-
-		~ FileWrite()
-		{
-			myfile.close();
-		}
-	
-		ofstream& operator << (const char* str)
-		{	 		
-	 		myfile << str; 		
-
-	 		return myfile;
-		}	
-
-		ofstream& operator << (const float f)
-		{	 		
-	 		myfile << f; 		
-
-	 		return myfile;
-		}	
-};
-
-
-void qsortp_debug::printTuples(tuple<int, int> *tuples, int count)
-{
-	for(auto i=0; i<count; i++)
-	{
-		auto start = get<0>(tuples[i]);
-		auto end = get<1>(tuples[i]);
-
-		cout << "Index: " << i << " Start: " << start << " End: " << end << endl;
-	}
-};
-
 //Sample Vertex class 
-struct qsortp_debug:: Vertex 
+struct qsortp_debug:: Vertex
 {
 	private:
 		float x,y,z;
@@ -135,7 +90,71 @@ struct qsortp_debug:: Vertex
 		static float getDistanceFrom0(const Vertex& v) {
 			return sqrt(pow(v.x,2) + pow(v.y,2) + pow(v.z,2));
 		}
+
+		float getX() const {return x;}
+		float getY() const {return y;}
+		float getZ() const {return z;}
 };
+
+class qsortp_debug::FileWrite
+{
+
+	private: 
+		ofstream myfile;
+
+
+	public: 
+		FileWrite(const char* fileName)
+		{
+			myfile.open (fileName);
+		}
+
+		~ FileWrite()
+		{
+			myfile.close();
+		}
+	
+		ofstream& operator << (const char* str)
+		{	 		
+	 		myfile << str; 		
+	 		return myfile;
+		}	
+
+		ofstream& operator << (const float f)
+		{	 		
+	 		myfile << f; 		
+	 		return myfile;
+		}		
+
+
+		ofstream& operator << (const unsigned u)
+		{	 		
+	 		myfile << u; 		
+	 		return myfile;
+		}		
+
+		ofstream& operator << (Vertex v)
+		{	 		
+	 		myfile << "x:(" << v.getX() << ") y:(" << v.getY() << ") z:(" << v.getZ() << ")\n";
+
+	 		return myfile;
+		}	
+
+};
+
+
+void qsortp_debug::printTuples(tuple<int, int> *tuples, int count)
+{
+	for(auto i=0; i<count; i++)
+	{
+		auto start = get<0>(tuples[i]);
+		auto end = get<1>(tuples[i]);
+
+		cout << "Index: " << i << " Start: " << start << " End: " << end << endl;
+	}
+};
+
+
 
 
 
